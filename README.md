@@ -10,7 +10,7 @@ https://xtrendence.github.io/X-Notify/
 
 ### Installation
 
-Put "x-notify.js" in a directory such as "assets/js/", and then, in your "<head>" tag:
+Put "x-notify.js" in a directory such as "assets/js/", and then, in your `"<head>"` tag:
 
 ````
 <script src="./assets/js/x-notify.js"></script>
@@ -66,16 +66,24 @@ Here's a list of all the options you can use, and acceptable values:
 |background|String|"rgb(r,g,b)", "rgba(r,g,b,a)", "#RRGGBB"|The color of the background of the notification. Can be any RGB, RGBA, or hex value.|
 |color|String|"rgb(r,g,b)", "rgba(r,g,b,a)", "#RRGGBB"|The color of the font of the notification. Can be any RGB, RGBA, or hex value.|
 
-A completely custom notification would look like this:
+A full example with a button click event listener, and a fully custom notification:
 
 ````
-Notify.info({
-	width: "300px",
-	borderRadius: "4px",
-	title: "Customized Notification",
-	description: "Description of the notification.",
-	duration: 10000,
-	background: "rgb(0,0,30)",
-	color: "rgb(0,200,255)"
+document.addEventListener("DOMContentLoaded", () => {
+	const Notify = new XNotify();
+
+	let custom = document.getElementById("custom");
+
+	custom.addEventListener("click", () => {
+		Notify.info({
+			width: "300px",
+			borderRadius: "4px",
+			title: "Customized Notification",
+			description: "Description of the notification.",
+			duration: 10000,
+			background: "rgb(0,0,30)",
+			color: "rgb(0,200,255)"
+		});
+	});
 });
 ````
