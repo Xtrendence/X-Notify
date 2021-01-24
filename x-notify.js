@@ -1,3 +1,8 @@
+/*
+* Website: https://www.xtrendence.com
+* Portfolio: https://www.xtrendence.dev
+* GitHub: https://www.github.com/Xtrendence
+*/
 class XNotify {
 	constructor(position) {
 		this.position = this.empty(position) ? "TopRight" : position;
