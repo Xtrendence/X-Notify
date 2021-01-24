@@ -2,6 +2,8 @@
 
 The main goal of this library is to provide developers with a good looking notification system with a single ".js" file. All the styling and such would be included in that file.
 
+The [minified version](https://github.com/Xtrendence/X-Notify/blob/main/x-notify.min.js) is only 4.52 KBs, whereas the [normal one](https://github.com/Xtrendence/X-Notify/blob/main/x-notify.js) is 6.71 KBs.
+
 ### Demo
 
 You can test this out here: 
@@ -10,7 +12,7 @@ https://xtrendence.github.io/X-Notify/
 
 ### Installation
 
-Put "x-notify.js" in a directory such as "assets/js/", and then, in your `"<head>"` tag:
+Put "x-notify.js" in a directory such as "assets/js/", and then, in your `<head>` tag:
 
 ````
 <script src="./assets/js/x-notify.js"></script>
