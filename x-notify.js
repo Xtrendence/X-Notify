@@ -1,6 +1,8 @@
 class XNotify {
 	constructor() {
 		this.defaults = {
+			width: "250px",
+			borderRadius: "10px",
 			position: "TopRight",
 			duration: 5000,
 			color: "rgb(255,255,255)",
@@ -28,6 +30,10 @@ class XNotify {
 	}
 
 	setOptions(options, type) {
+		this.width = this.empty(options.width) ? this.defaults.width : options.width;
+
+		this.borderRadius = this.empty(options.borderRadius) ? this.defaults.borderRadius : options.borderRadius;
+
 		this.position = this.empty(options.position) ? this.defaults.position : options.position;
 
 		this.title = this.empty(options.title) ? this.defaults[type].title : options.title;
@@ -77,8 +83,9 @@ class XNotify {
 		
 		let notification = document.createElement("div");
 		notification.id = this.generateID();
+		notification.style = 'background:' + this.background + '; color:' + this.color + '; width:' + this.width + '; border-radius:' + this.borderRadius + '; margin:20px; padding:10px 12px 12px 12px; font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif';
 
-		notification.innerHTML = '<span>' + this.title + '</span>';
+		notification.innerHTML = '<span style="font-size:18px; font-weight:bold; color:' + this.color + '; display:block;">' + this.title + '</span><span style="font-size:16px; color:' + this.color + '; display:block; margin-top:5px;">' + this.description + '</span>';
 
 		return notification;
 	}
@@ -114,7 +121,7 @@ class XNotify {
 				break;
 			}
 		}
-		
+
 		return id;
 	}
 
