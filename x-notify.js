@@ -43,30 +43,96 @@ class XNotify {
 
 	success(options) {
 		this.setOptions(options, "success");
+		let element = this.createElement();
+		this.showNotification(element);
 	}
 
 	error(options) {
 		this.setOptions(options, "error");
+		let element = this.createElement();
+		this.showNotification(element);
 	}
 
 	alert(options) {
 		this.setOptions(options, "alert");
+		let element = this.createElement();
+		this.showNotification(element);
 	}
 
 	info(options) {
 		this.setOptions(options, "info");
+		let element = this.createElement();
+		this.showNotification(element);
 	}
 
 	createElement() {
+		if(!document.getElementById("x-notify-container")) {
+			let body = document.getElementsByTagName("body")[0];
 
+			let container = document.createElement("div");
+			container.id = "x-notify-container";
+			
+			body.appendChild(container);
+		}
+		
+		let notification = document.createElement("div");
+		notification.id = this.generateID();
+
+		notification.innerHTML = '<span>' + this.title + '</span>';
+
+		return notification;
 	}
 
-	showNotification(id) {
+	showNotification(element) {
+		let container = document.getElementById("x-notify-container");
 
+		container.appendChild(element);
+
+		setTimeout(() => {
+			this.hideNotification(element);
+		}, this.duration);
 	}
 
-	hideNotification(id) {
+	hideNotification(element) {
+		element.remove();
+	}
 
+	generateID() {
+		let id = this.epoch() + "-" + this.shuffle(this.epoch());
+
+		if(this.empty(document.getElementById("x-notify-container").innerHTML)) {
+			return id;
+		}
+
+		let invalid = true;
+
+		while(invalid) {
+			if(document.getElementById(id)) {
+				id = this.epoch() + "-" + this.shuffle(this.epoch());
+			} else {
+				invalid = false;
+				break;
+			}
+		}
+		
+		return id;
+	}
+
+	shuffle(string) {
+		let parts = string.toString().split("");
+		for(let i = parts.length; i > 0;) {
+			let random = parseInt(Math.random() * i);
+			let temp = parts[--i];
+			parts[i] = parts[random];
+			parts[random] = temp;
+		}
+		return parts.join("");
+	}
+
+	epoch() {
+		var date = new Date();
+		var time = Math.round(date.getTime() / 1000);
+		return time;
 	}
 
 	empty(value) {
