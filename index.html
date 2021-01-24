@@ -48,24 +48,46 @@
 
 				success.addEventListener("click", () => {
 					Notify.success({ 
-						title: "Title", 
-						description: "Description", 
-						duration: 4000 
+						title: "A Successful Event", 
+						description: "The description of a successful event.", 
+						duration: 4000
 					});
 				});
+
 				error.addEventListener("click", () => {
 					Notify.error({
-
+						title: "Some Error",
+						description: "Description of said error.",
+						duration: 4000
 					});
 				});
+
 				alert.addEventListener("click", () => {
 					Notify.alert({
-
+						title: "Just a Warning",
+						description: "Description of the alert or warning.",
+						duration: 4000
 					});
 				});
+
 				info.addEventListener("click", () => {
 					Notify.info({
+						title: "Just Some Info",
+						description: "Longer version of the information.",
+						duration: 4000
+					});
+				});
 
+				custom.addEventListener("click", () => {
+					let Notify = new XNotify("BottomRight");
+					Notify.info({
+						width: "300px",
+						borderRadius: "4px",
+						title: "Customized Notification",
+						description: "Description of the notification.",
+						duration: 10000,
+						background: "rgb(0,0,30)",
+						color: "rgb(0,200,255)"
 					});
 				});
 			});
@@ -73,10 +95,11 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<button id="success">Notify.success();</button>
-			<button id="error">Notify.error();</button>
-			<button id="alert">Notify.alert();</button>
-			<button id="info">Notify.info();</button>
+			<button id="success">Success</button>
+			<button id="error">Error</button>
+			<button id="alert">Alert</button>
+			<button id="info">Info</button>
+			<button id="custom">Custom</button>
 		</div>
 	</body>
 </html>

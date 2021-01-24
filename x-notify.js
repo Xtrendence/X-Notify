@@ -1,9 +1,10 @@
 class XNotify {
-	constructor() {
+	constructor(position) {
+		this.position = this.empty(position) ? "TopRight" : position;
+
 		this.defaults = {
 			width: "250px",
 			borderRadius: "10px",
-			position: "TopRight",
 			duration: 5000,
 			color: "rgb(255,255,255)",
 			success: {
@@ -33,8 +34,6 @@ class XNotify {
 		this.width = this.empty(options.width) ? this.defaults.width : options.width;
 
 		this.borderRadius = this.empty(options.borderRadius) ? this.defaults.borderRadius : options.borderRadius;
-
-		this.position = this.empty(options.position) ? this.defaults.position : options.position;
 
 		this.title = this.empty(options.title) ? this.defaults[type].title : options.title;
 
@@ -75,25 +74,64 @@ class XNotify {
 		if(!document.getElementById("x-notify-container")) {
 			let body = document.getElementsByTagName("body")[0];
 
+			let height = "calc(100% - 20px)";
+			let top = "0";
+			let right = "0";
+			let bottom = "auto";
+			let left = "auto";
+
+			switch(this.position) {
+				case "BottomRight":
+					height = "auto";
+					top = "auto";
+					bottom = "0";
+					break;
+				case "BottomLeft":
+					height = "auto";
+					top = "auto";
+					right = "auto";
+					bottom = "0";
+					left = "0";
+					break;
+				case "TopLeft":
+					right = "auto";
+					left = "0";
+					break;
+			}
+
 			let container = document.createElement("div");
 			container.id = "x-notify-container";
+			container.style = 'position:absolute; z-index:999; width:calc(' + this.width + ' + 70px); height:' + height + '; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; padding-top:20px; top:' + top + '; right:' + right + '; bottom:' + bottom + '; left:' + left + ';';
 			
 			body.appendChild(container);
 		}
 		
+		let row = document.createElement("div");
+		row.id = this.generateID();
+		row.style = 'display:block; padding:0 20px 20px 20px;';
+
 		let notification = document.createElement("div");
-		notification.id = this.generateID();
-		notification.style = 'background:' + this.background + '; color:' + this.color + '; width:' + this.width + '; border-radius:' + this.borderRadius + '; margin:20px; padding:10px 12px 12px 12px; font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif';
+		notification.style = 'background:' + this.background + '; color:' + this.color + '; width:' + this.width + '; border-radius:' + this.borderRadius + '; padding:10px 12px 12px 12px; font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif; display:inline-block;';
 
-		notification.innerHTML = '<span style="font-size:18px; font-weight:bold; color:' + this.color + '; display:block;">' + this.title + '</span><span style="font-size:16px; color:' + this.color + '; display:block; margin-top:5px;">' + this.description + '</span>';
+		notification.innerHTML = '<span style="font-size:18px; font-weight:bold; color:' + this.color + '; display:block; line-height:25px;">' + this.title + '</span><span style="font-size:16px; color:' + this.color + '; display:block; margin-top:5px; line-height:25px;">' + this.description + '</span>';
 
-		return notification;
+		row.append(notification);
+
+		return row;
 	}
 
 	showNotification(element) {
 		let container = document.getElementById("x-notify-container");
 
-		container.appendChild(element);
+		if(this.position === "BottomRight" || this.position === "BottomLeft") {
+			container.append(element);
+			if(container.scrollHeight > window.innerHeight) {
+				container.style.height = "calc(100% - 20px)";
+			}
+			container.scrollTo(0, container.scrollHeight);
+		} else {
+			container.prepend(element);
+		}
 
 		setTimeout(() => {
 			this.hideNotification(element);
@@ -101,7 +139,17 @@ class XNotify {
 	}
 
 	hideNotification(element) {
+		let container = document.getElementById("x-notify-container");
+
 		element.remove();
+
+		if(container.scrollHeight <= window.innerHeight) {
+			container.style.height = "auto";
+		}
+
+		if(this.empty(container.innerHTML)) {
+			container.remove();
+		}
 	}
 
 	generateID() {

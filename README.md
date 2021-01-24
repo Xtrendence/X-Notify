@@ -13,7 +13,7 @@ Put "x-notify.js" in a directory such as "assets/js/", and then, in your "<head>
 ### Usage:
 
 ````
-const Notify = new XNotify();
+const Notify = new XNotify("TopLeft");
 ````
 ````
 Notify.success({ 
@@ -28,7 +28,6 @@ The above would show a notification on the top right of the screen and it'd stay
 ````
 Notify.error({
 	width: "300px",
-	position: "BottomLeft",
 	title: "Failed to Upload File",
 	description: "The file you submitted couldn't be uploaded.",
 	duration: 4000,
@@ -52,7 +51,7 @@ Here's a list of all the options you can use, and acceptable values:
 
 |Option|Type|Value|Description|
 |------|----|-----|-----------|
-|position|String|"TopRight", "BottomRight", "BottomLeft", "TopLeft"|Where the notification popup would appear.|
+|position|String|"TopRight", "BottomRight", "BottomLeft", "TopLeft"|Where the notification popup would appear (this is passed to the constructor).|
 |width|String|Any integer with "px", such as "100px".|The width of the notification.|
 |borderRadius|String|Any integer with "px", such as "20px".|The border radius of the notification.|
 |title|String|Usually, some short text.|The title of the notification; something like "Upload Error", or "Form Submitted".|
