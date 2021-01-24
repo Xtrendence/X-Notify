@@ -75,6 +75,8 @@ class XNotify {
 			let body = document.getElementsByTagName("body")[0];
 
 			let height = "calc(100% - 20px)";
+			let paddingRight = "20px";
+			let paddingLeft = "0";
 			let top = "0";
 			let right = "0";
 			let bottom = "auto";
@@ -88,12 +90,16 @@ class XNotify {
 					break;
 				case "BottomLeft":
 					height = "auto";
+					paddingRight = "0";
+					paddingLeft = "20px";
 					top = "auto";
 					right = "auto";
 					bottom = "0";
 					left = "0";
 					break;
 				case "TopLeft":
+					paddingRight = "0";
+					paddingLeft = "20px";
 					right = "auto";
 					left = "0";
 					break;
@@ -101,17 +107,20 @@ class XNotify {
 
 			let container = document.createElement("div");
 			container.id = "x-notify-container";
-			container.style = 'position:absolute; z-index:999; width:calc(' + this.width + ' + 70px); height:' + height + '; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; padding-top:20px; top:' + top + '; right:' + right + '; bottom:' + bottom + '; left:' + left + ';';
+			container.style = 'position:absolute; z-index:999; width:calc(' + this.width + ' + 70px); height:' + height + '; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; padding-top:20px; padding-right:' + paddingRight + '; padding-left:' + paddingLeft + '; top:' + top + '; right:' + right + '; bottom:' + bottom + '; left:' + left + ';';
 			
 			body.appendChild(container);
 		}
+
+		let align = (this.position === "TopRight" || this.position === "BottomRight") ? "right" : "left";
 		
 		let row = document.createElement("div");
 		row.id = this.generateID();
-		row.style = 'display:block; padding:0 20px 20px 20px;';
+		row.style = 'display:block; padding:0 0 20px 0; text-align:' + align + '; width:100%;';
 
 		let notification = document.createElement("div");
-		notification.style = 'background:' + this.background + '; color:' + this.color + '; width:' + this.width + '; border-radius:' + this.borderRadius + '; padding:10px 12px 12px 12px; font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif; display:inline-block;';
+		notification.classList.add("x-notification");
+		notification.style = 'background:' + this.background + '; color:' + this.color + '; width:' + this.width + '; border-radius:' + this.borderRadius + '; padding:10px 12px 12px 12px; font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif; display:inline-block; text-align:left; opacity:0;';
 
 		notification.innerHTML = '<span style="font-size:18px; font-weight:bold; color:' + this.color + '; display:block; line-height:25px;">' + this.title + '</span><span style="font-size:16px; color:' + this.color + '; display:block; margin-top:5px; line-height:25px;">' + this.description + '</span>';
 
@@ -123,6 +132,8 @@ class XNotify {
 	showNotification(element) {
 		let container = document.getElementById("x-notify-container");
 
+		let notification = element.getElementsByClassName("x-notification")[0];
+
 		if(this.position === "BottomRight" || this.position === "BottomLeft") {
 			container.append(element);
 			if(container.scrollHeight > window.innerHeight) {
@@ -133,6 +144,16 @@ class XNotify {
 			container.prepend(element);
 		}
 
+		let opacity = 0.05;
+		let animation = setInterval(() => {
+			opacity += 0.05;
+			notification.style.opacity = opacity;
+			if(opacity >= 1) {
+				notification.style.opacity = 1;
+				clearInterval(animation);
+			}
+		}, 10);
+
 		setTimeout(() => {
 			this.hideNotification(element);
 		}, this.duration);
@@ -141,7 +162,17 @@ class XNotify {
 	hideNotification(element) {
 		let container = document.getElementById("x-notify-container");
 
-		element.remove();
+		let notification = element.getElementsByClassName("x-notification")[0];
+
+		let opacity = 1;
+		let animation = setInterval(() => {
+			opacity -= 0.05;
+			notification.style.opacity = opacity;
+			if(opacity <= 0) {
+				element.remove();
+				clearInterval(animation);
+			}
+		}, 10);
 
 		if(container.scrollHeight <= window.innerHeight) {
 			container.style.height = "auto";
@@ -149,6 +180,15 @@ class XNotify {
 
 		if(this.empty(container.innerHTML)) {
 			container.remove();
+		}
+	}
+
+	clear() {
+		let container = document.getElementById("x-notify-container");
+		let notifications = container.getElementsByClassName("x-notification");
+
+		for(let i = 0; i < notifications.length; i++) {
+			this.hideNotification(notifications[i]);
 		}
 	}
 
