@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="./x-notify.js"></script>
+		<style>
+			body {
+				margin:0;
+			}
+			.wrapper {
+				height:calc((40px * 4) + (20px * 3));
+				width:180px;
+				position:absolute;
+				top:calc(50% - (40px * 4) + (20px * 3) / 2);
+				left:calc(50% - 180px / 2)
+			}
+			.wrapper button {
+				background:rgb(0,150,255);
+				border:none;
+				outline:none;
+				cursor:pointer;
+				padding:0 10px 0 10px;
+				height:40px;
+				width:180px;
+				font-size:18px;
+				font-weight:bold;
+				color:rgb(255,255,255);
+				border-radius:10px;
+				display:block;
+				margin:0 auto 20px auto;
+				transition:background 0.25s;
+			}
+			.wrapper button:hover {
+				background:rgb(0,120,255);
+			}
+			.wrapper button:last-of-type {
+				margin-bottom:0;
+			}
+		</style>
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const Notify = new XNotify();
+
+				let success = document.getElementById("success");
+				let error = document.getElementById("error");
+				let alert = document.getElementById("alert");
+				let info = document.getElementById("info");
+
+				success.addEventListener("click", () => {
+					Notify.success({ 
+						title: "Title", 
+						description: "Description", 
+						duration: 4000 
+					});
+				});
+				error.addEventListener("click", () => {
+					Notify.error({
+
+					});
+				});
+				alert.addEventListener("click", () => {
+					Notify.alert({
+
+					});
+				});
+				info.addEventListener("click", () => {
+					Notify.info({
+
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<button id="success">Notify.success();</button>
+			<button id="error">Notify.error();</button>
+			<button id="alert">Notify.alert();</button>
+			<button id="info">Notify.info();</button>
+		</div>
+	</body>
+</html>
