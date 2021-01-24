@@ -112,7 +112,7 @@ class XNotify {
 
 			let container = document.createElement("div");
 			container.id = "x-notify-container";
-			container.style = 'position:absolute; z-index:999; width:calc(' + this.width + ' + 70px); height:' + height + '; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; padding-top:20px; padding-right:' + paddingRight + '; padding-left:' + paddingLeft + '; top:' + top + '; right:' + right + '; bottom:' + bottom + '; left:' + left + ';';
+			container.style = 'position:absolute; z-index:999; width:calc(' + this.width + ' + 70px); height:' + height + '; pointer-events:none; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; padding-top:20px; padding-right:' + paddingRight + '; padding-left:' + paddingLeft + '; top:' + top + '; right:' + right + '; bottom:' + bottom + '; left:' + left + ';';
 			
 			body.appendChild(container);
 		}
@@ -125,7 +125,7 @@ class XNotify {
 
 		let notification = document.createElement("div");
 		notification.classList.add("x-notification");
-		notification.style = 'background:' + this.background + '; color:' + this.color + '; width:' + this.width + '; border-radius:' + this.borderRadius + '; padding:10px 12px 12px 12px; font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif; display:inline-block; text-align:left; opacity:0;';
+		notification.style = 'background:' + this.background + '; color:' + this.color + '; width:' + this.width + '; border-radius:' + this.borderRadius + '; padding:10px 12px 12px 12px; font-family:"Helvetica Neue", "Lucida Grande", "Arial", "Verdana", "Tahoma", sans-serif; display:inline-block; text-align:left; opacity:0; pointer-events:auto; -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; outline:none;';
 
 		notification.innerHTML = '<span style="font-size:18px; font-weight:bold; color:' + this.color + '; display:block; line-height:25px;">' + this.title + '</span><span style="font-size:16px; color:' + this.color + '; display:block; margin-top:5px; line-height:25px;">' + this.description + '</span>';
 
