@@ -112,7 +112,7 @@ class XNotify {
 
 			let container = document.createElement("div");
 			container.id = "x-notify-container";
-			container.style = 'position:absolute; z-index:999; width:calc(' + this.width + ' + 70px); height:' + height + '; pointer-events:none; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; padding-top:20px; padding-right:' + paddingRight + '; padding-left:' + paddingLeft + '; top:' + top + '; right:' + right + '; bottom:' + bottom + '; left:' + left + ';';
+			container.style = 'position:fixed; z-index:999; width:calc(' + this.width + ' + 70px); height:' + height + '; pointer-events:none; overflow-x:hidden; overflow-y:scroll; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; padding-top:20px; padding-right:' + paddingRight + '; padding-left:' + paddingLeft + '; top:' + top + '; right:' + right + '; bottom:' + bottom + '; left:' + left + ';';
 			
 			body.appendChild(container);
 		}
