@@ -2,7 +2,7 @@
 
 The main goal of this library is to provide developers with a good looking notification system with a single ".js" file. All the styling and such would be included in that file.
 
-The [minified version](https://github.com/Xtrendence/X-Notify/blob/main/x-notify.min.js) is only 4.69 KBs, whereas the [normal one](https://github.com/Xtrendence/X-Notify/blob/main/x-notify.js) is 6.88 KBs.
+The [minified version](https://github.com/Xtrendence/X-Notify/blob/main/x-notify.min.js) is only 4.71 KBs, whereas the [normal one](https://github.com/Xtrendence/X-Notify/blob/main/x-notify.js) is 6.9 KBs.
 
 ### Demo
 
