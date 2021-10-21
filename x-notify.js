@@ -5,8 +5,6 @@
 */
 class XNotify {
 	constructor(position) {
-		this.position = this.empty(position) ? "TopRight" : position;
-
 		this.defaults = {
 			width: "250px",
 			borderRadius: "10px",
@@ -49,6 +47,8 @@ class XNotify {
 		this.background = this.empty(options.background) ? this.defaults[type].background : options.background;
 
 		this.color = this.empty(options.color) ? this.defaults.color : options.color;
+
+        this.position = this.empty(options.position) ? "TopRight"  : options.position;
 	}
 
 	success(options) {
